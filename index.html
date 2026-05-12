@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HabitFlow</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="HabitFlow navigation">
+        <div>
+          <p class="eyebrow">HabitFlow</p>
+          <h1>Turn habits into calendar-ready plans.</h1>
+        </div>
+
+        <nav class="tabs" aria-label="Views">
+          <button class="tab active" data-view="today">Today</button>
+          <button class="tab" data-view="habits">Habits</button>
+          <button class="tab" data-view="sync">Reminders</button>
+        </nav>
+
+        <div class="summary">
+          <span>Today progress</span>
+          <strong id="todayRate">0%</strong>
+          <div class="meter"><span id="todayMeter"></span></div>
+        </div>
+      </aside>
+
+      <main>
+        <section class="view active" id="view-today">
+          <header class="topbar">
+            <div>
+              <p class="date-label" id="dateLabel"></p>
+              <h2>Today Check-In</h2>
+            </div>
+            <button class="primary" id="quickAdd">+ Add habit</button>
+          </header>
+
+          <div class="habit-list" id="todayList"></div>
+        </section>
+
+        <section class="view" id="view-habits">
+          <header class="topbar">
+            <div>
+              <p class="date-label">Habit library</p>
+              <h2>Manage Habits</h2>
+            </div>
+          </header>
+
+          <form class="panel form-grid" id="habitForm">
+            <label>
+              Habit name
+              <input id="habitName" maxlength="32" placeholder="Example: Walk for 20 minutes" required />
+            </label>
+            <label>
+              Schedule
+              <select id="habitDays">
+                <option value="daily">Daily</option>
+                <option value="weekdays">Weekdays</option>
+                <option value="weekends">Weekends</option>
+              </select>
+            </label>
+            <label>
+              Reminder time
+              <input id="habitTime" type="time" value="08:00" />
+            </label>
+            <label class="toggle-row">
+              <input id="habitNotify" type="checkbox" checked />
+              Enable reminder
+            </label>
+            <button class="primary" type="submit">Add</button>
+          </form>
+
+          <div class="habit-list" id="habitList"></div>
+        </section>
+
+        <section class="view" id="view-sync">
+          <header class="topbar">
+            <div>
+              <p class="date-label">Reminders & Calendar</p>
+              <h2>Notifications and Google Calendar</h2>
+            </div>
+          </header>
+
+          <div class="settings-grid">
+            <section class="panel">
+              <h3>Browser Notifications</h3>
+              <p class="muted">Get a reminder in this browser at each habit's scheduled time.</p>
+              <div class="row">
+                <span id="permissionStatus">Not checked</span>
+                <button id="requestNotification" type="button">Allow notifications</button>
+              </div>
+              <label class="toggle-row">
+                <input id="globalNotify" type="checkbox" />
+                Enable all reminders
+              </label>
+            </section>
+
+            <section class="panel">
+              <h3>Google Calendar</h3>
+              <p class="muted">Save a Google OAuth Client ID for future API sync, or export an .ics file now.</p>
+              <label>
+                Google OAuth Client ID
+                <input id="googleClientId" placeholder="xxxx.apps.googleusercontent.com" />
+              </label>
+              <label class="toggle-row">
+                <input id="calendarSync" type="checkbox" />
+                Sync habits as calendar events
+              </label>
+              <div class="button-row">
+                <button id="saveSync" type="button">Save settings</button>
+                <button id="downloadIcs" type="button">Export .ics</button>
+              </div>
+              <p class="status" id="syncStatus"></p>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="emptyTemplate">
+      <div class="empty">
+        <strong>No habits yet</strong>
+        <span>Add your first habit to start today's check-in.</span>
+      </div>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
